@@ -1,0 +1,77 @@
+project_name: pytest-allclose
+pkg_name: pytest_allclose
+repo_name: nengo/pytest-allclose
+description: Pytest fixture extending Numpy's allclose function
+
+copyright_start: 2019
+
+license_rst:
+  type: mit
+
+contributing_rst: {}
+
+contributors_rst: {}
+
+manifest_in: {}
+
+setup_py:
+  license: MIT license
+  python_requires: ">=2.7"
+  install_req:
+    - numpy>=1.11
+    - pytest
+  docs_req:
+    - nengo_sphinx_theme>=1.0
+    - sphinx
+  tests_req:
+    - codespell
+    - coverage>=4.3
+    - flake8
+    - gitlint
+    - pylint
+  entry_points:
+    pytest11:
+      - "allclose = pytest_allclose.plugin"
+  classifiers:
+    - "Development Status :: 5 - Production/Stable"
+    - "Framework :: Pytest"
+    - "License :: OSI Approved :: MIT License"
+    - "Programming Language :: Python :: 2.7"
+    - "Programming Language :: Python :: 3.5"
+    - "Programming Language :: Python :: 3.6"
+    - "Programming Language :: Python :: 3.7"
+    - "Topic :: Scientific/Engineering :: Artificial Intelligence"
+
+setup_cfg:
+  pytest:
+    addopts: ""
+    allclose_test_tolerances:
+      test_tolerances_big: atol=0.01 rtol=0.2
+      test_tolerances_small: atol=0.001 rtol=0.005
+
+docs_conf_py: {}
+
+travis_yml:
+  python: 3.6
+  global_vars:
+    NUMPY: numpy
+  jobs:
+    - script: static
+    - python: 2.7
+    - python: 3.5
+      env:
+        NUMPY: numpy==1.11
+      cache: false  # disable the cache for one build to make sure that works
+    - python: 3.6
+    - python: 3.7
+      dist: xenial  # currently only xenial has python 3.7
+      env:
+        NUMPY: numpy==1.16
+    - script: docs
+
+ci_scripts:
+  - template: static
+  - template: test
+  - template: docs
+
+codecov_yml: {}
