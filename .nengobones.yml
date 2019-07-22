@@ -1,0 +1,97 @@
+project_name: pytest-allclose
+pkg_name: pytest_allclose
+repo_name: nengo/pytest-allclose
+description: Pytest fixture extending Numpy's allclose function
+
+copyright_start: 2019
+
+license_rst:
+  type: mit
+
+contributing_rst: {}
+
+contributors_rst: {}
+
+manifest_in: {}
+
+setup_py:
+  license: MIT license
+  python_requires: ">=3.5"
+  install_req:
+    - numpy>=1.11
+    - pytest
+  docs_req:
+    - nengo_sphinx_theme>=1.0
+    - sphinx
+  tests_req:
+    - codespell
+    - coverage>=4.3
+    - flake8
+    - gitlint
+    - pylint
+  entry_points:
+    pytest11:
+      - "allclose = pytest_allclose.plugin"
+  classifiers:
+    - "Development Status :: 5 - Production/Stable"
+    - "Framework :: Pytest"
+    - "License :: OSI Approved :: MIT License"
+    - "Programming Language :: Python :: 3 :: Only"
+    - "Programming Language :: Python :: 3.5"
+    - "Programming Language :: Python :: 3.6"
+    - "Programming Language :: Python :: 3.7"
+
+setup_cfg:
+  pytest:
+    addopts: []
+    allclose_tolerances:
+      - test_tolerances_big atol=0.01 rtol=0.2
+      - "test_tolerances_small atol=0.001 rtol=0.005  # test comment"
+      - test_parametrized[True] atol=0.1 rtol=0.2  # parametrized with big tols
+      - test_parametrized[False] atol=0.001 rtol=0.002  # and with small tols
+      - test_precedence[1] atol=1 rtol=2  # correct, specific first
+      - test_precedence* atol=2 rtol=4  # general, should work for 2
+      - test_precedence[3] atol=3 rtol=6  # incorrect, specific after general
+      - test_multiple_tolerances atol=0.001 rtol=0.004
+      - test_multiple_tolerances atol=0.01 rtol=0.05
+      - test_multiple_tolerances atol=0.002 rtol=0.005
+
+docs_conf_py:
+  nengo_logo: general-small-light.svg
+
+travis_yml:
+  python: 3.6
+  global_vars:
+    NUMPY: numpy
+  jobs:
+    - script: static
+    - script: test-coverage
+    - script: test
+      python: 3.5
+      env:
+        NUMPY: numpy==1.11
+      cache: false  # disable the cache for one build to make sure that works
+    - script: test
+      python: 3.7
+      dist: xenial  # currently only xenial has python 3.7
+      env:
+        NUMPY: numpy==1.16
+    - script: docs
+
+ci_scripts:
+  - template: static
+  - template: test
+    pip_install:
+      - $NUMPY
+  - template: test
+    output_name: test-coverage
+    coverage: true
+    pip_install:
+      - $NUMPY
+  - template: docs
+
+codecov_yml: {}
+
+pre_commit_config_yaml: {}
+
+pyproject_toml: {}
