@@ -58,8 +58,8 @@ pygments_style = "sphinx"
 project = "pytest-allclose"
 authors = "Applied Brain Research"
 copyright = "2019-2019 Applied Brain Research"
-version = ".".join(pytest_allclose.__version__.split(".")[:2])  # Short X.Y version
 release = pytest_allclose.__version__  # Full version, with tags
+version = ".".join(release.split(".")[:2])  # Short X.Y version
 
 # -- HTML output
 templates_path = ["_templates"]

@@ -57,6 +57,7 @@ docs_conf_py:
   nengo_logo: general-square-light.svg
 
 travis_yml:
+  bones_install: git+https://github.com/nengo/nengo-bones@pytest-allclose
   python: 3.6
   global_vars:
     NUMPY: numpy
