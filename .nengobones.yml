@@ -49,7 +49,8 @@ setup_cfg:
       test_tolerances_big: atol=0.01 rtol=0.2
       test_tolerances_small: atol=0.001 rtol=0.005
 
-docs_conf_py: {}
+docs_conf_py:
+  nengo_logo: general-square-light.svg
 
 travis_yml:
   python: 3.6

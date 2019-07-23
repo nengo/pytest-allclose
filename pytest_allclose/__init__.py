@@ -2,7 +2,7 @@
 pytest_allclose
 ===============
 
-pytest fixtures for comparing the closeness of values
+Pytest fixture extending Numpy's allclose function.
 """
 
 from .version import version as __version__

@@ -71,6 +71,6 @@ html_last_updated_fmt = ""  # Default output format (suppressed)
 html_show_sphinx = False
 html_favicon = os.path.join("_static", "favicon.ico")
 html_theme_options = {
-    "nengo_logo": "general-full-light.svg",
+    "nengo_logo": "general-square-light.svg",
     "nengo_logo_color": "#a8acaf",
 }
