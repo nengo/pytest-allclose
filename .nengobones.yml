@@ -16,7 +16,7 @@ manifest_in: {}
 
 setup_py:
   license: MIT license
-  python_requires: ">=2.7"
+  python_requires: ">=3.5"
   install_req:
     - numpy>=1.11
     - pytest
@@ -36,11 +36,10 @@ setup_py:
     - "Development Status :: 5 - Production/Stable"
     - "Framework :: Pytest"
     - "License :: OSI Approved :: MIT License"
-    - "Programming Language :: Python :: 2.7"
+    - "Programming Language :: Python :: 3 :: Only"
     - "Programming Language :: Python :: 3.5"
     - "Programming Language :: Python :: 3.6"
     - "Programming Language :: Python :: 3.7"
-    - "Topic :: Scientific/Engineering :: Artificial Intelligence"
 
 setup_cfg:
   pytest:
@@ -58,7 +57,6 @@ travis_yml:
     NUMPY: numpy
   jobs:
     - script: static
-    - python: 2.7
     - python: 3.5
       env:
         NUMPY: numpy==1.11

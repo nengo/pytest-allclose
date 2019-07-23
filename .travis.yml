@@ -26,8 +26,6 @@ jobs:
     env:
       SCRIPT="static"
   -
-    python: 2.7
-  -
     env:
       NUMPY="numpy==1.11"
     python: 3.5
