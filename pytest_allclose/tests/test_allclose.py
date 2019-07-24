@@ -75,3 +75,21 @@ def test_parametrized(big_tols, allclose):
     pairs = get_vector_pairs(atol, rtol, np.random.RandomState(6))
     for close, x, y in pairs:
         assert allclose(y, x) is close
+
+
+def test_multiple_tolerances(allclose):
+    # setup.cfg specifies separate first, second, and third tolerances
+    rng = np.random.RandomState(7)
+
+    atol0, rtol0 = 0.001, 0.004
+    close0, x0, y0 = get_vector_pairs(atol0, rtol0, rng)[0]
+    assert close0 and allclose(y0, x0)
+
+    atol1, rtol1 = 0.01, 0.05
+    close1, x1, y1 = get_vector_pairs(atol1, rtol1, rng)[0]
+    assert close1 and allclose(y1, x1)
+
+    # go back to smaller tols, to test we're not just using last tols
+    atol2, rtol2 = 0.002, 0.005
+    close2, x2, y2 = get_vector_pairs(atol2, rtol2, rng)[0]
+    assert close2 and allclose(y2, x2)

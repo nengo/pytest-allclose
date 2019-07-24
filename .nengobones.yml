@@ -45,10 +45,13 @@ setup_cfg:
   pytest:
     addopts: ""
     allclose_test_tolerances:
-      test_tolerances_big: atol=0.01 rtol=0.2
-      test_tolerances_small: "atol=0.001 rtol=0.005  # test comment"
-      test_parametrized[True]: atol=0.1 rtol=0.2  # parametrized with big tols
-      test_parametrized[False]: atol=0.001 rtol=0.002  # and with small tols
+      - test_tolerances_big atol=0.01 rtol=0.2
+      - "test_tolerances_small atol=0.001 rtol=0.005  # test comment"
+      - test_parametrized[True] atol=0.1 rtol=0.2  # parametrized with big tols
+      - test_parametrized[False] atol=0.001 rtol=0.002  # and with small tols
+      - test_multiple_tolerances atol=0.001 rtol=0.004
+      - test_multiple_tolerances atol=0.01 rtol=0.05
+      - test_multiple_tolerances atol=0.002 rtol=0.005
 
 docs_conf_py:
   nengo_logo: general-square-light.svg
