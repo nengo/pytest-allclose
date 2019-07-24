@@ -1,6 +1,7 @@
 """Test the allclose fixture."""
 
 import numpy as np
+import pytest
 
 
 def eye_vector(n, k, dtype=bool):
@@ -14,7 +15,7 @@ def add_close_noise(x, atol, rtol, rng):
 
 
 def get_vector_pairs(atol, rtol, rng):
-    x = rng.uniform(-1, 1, size=10)
+    x = rng.uniform(-1, 1, size=100)
     y = add_close_noise(x, atol=atol, rtol=rtol, rng=rng)
 
     m = eye_vector(x.size, 0)
@@ -59,6 +60,18 @@ def test_tolerances_small(allclose):
     atol = 0.001
     rtol = 0.005
 
-    pairs = get_vector_pairs(atol, rtol, np.random.RandomState(4))
+    pairs = get_vector_pairs(atol, rtol, np.random.RandomState(5))
+    for close, x, y in pairs:
+        assert allclose(y, x) is close
+
+
+@pytest.mark.parametrize('big_tols', [False, True])
+def test_parametrized(big_tols, allclose):
+    if big_tols:
+        atol, rtol = 0.1, 0.2
+    else:
+        atol, rtol = 0.001, 0.002
+
+    pairs = get_vector_pairs(atol, rtol, np.random.RandomState(6))
     for close, x, y in pairs:
         assert allclose(y, x) is close
