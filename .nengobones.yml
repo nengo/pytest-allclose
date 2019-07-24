@@ -43,7 +43,7 @@ setup_py:
 
 setup_cfg:
   pytest:
-    addopts: ""
+    addopts: {}
     allclose_test_tolerances:
       - test_tolerances_big atol=0.01 rtol=0.2
       - "test_tolerances_small atol=0.001 rtol=0.005  # test comment"
@@ -62,12 +62,14 @@ travis_yml:
     NUMPY: numpy
   jobs:
     - script: static
-    - python: 3.5
+    - script: test-coverage
+    - script: test
+      python: 3.5
       env:
         NUMPY: numpy==1.11
       cache: false  # disable the cache for one build to make sure that works
-    - python: 3.6
-    - python: 3.7
+    - script: test
+      python: 3.7
       dist: xenial  # currently only xenial has python 3.7
       env:
         NUMPY: numpy==1.16
@@ -76,6 +78,13 @@ travis_yml:
 ci_scripts:
   - template: static
   - template: test
+    pip_install:
+      - $NUMPY
+  - template: test
+    output_name: test-coverage
+    coverage: true
+    pip_install:
+      - $NUMPY
   - template: docs
 
 codecov_yml: {}

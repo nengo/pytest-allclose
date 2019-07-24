@@ -27,14 +27,17 @@ jobs:
       SCRIPT="static"
   -
     env:
+      SCRIPT="test-coverage"
+  -
+    env:
       NUMPY="numpy==1.11"
+      SCRIPT="test"
     python: 3.5
     cache: False
   -
-    python: 3.6
-  -
     env:
       NUMPY="numpy==1.16"
+      SCRIPT="test"
     python: 3.7
     dist: xenial
   -
