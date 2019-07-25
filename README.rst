@@ -11,6 +11,15 @@ This allows different repositories to share the same tests,
 but use different tolerances.
 See the "Configuration" section below for details.
 
+Installation
+============
+
+To use this fixture, install with
+
+.. code-block:: bash
+
+   pip install pytest-allclose
+
 Usage
 =====
 
@@ -18,7 +27,7 @@ The ``allclose`` fixture is used just like Numpy's ``allclose`` function.
 
 .. code-block:: python
 
-   import numpy
+   import numpy as np
 
    def test_close(allclose):
        x = np.linspace(-1, 1)
@@ -27,11 +36,33 @@ The ``allclose`` fixture is used just like Numpy's ``allclose`` function.
        assert not allclose(y, x, atol=0.0005)
        assert not allclose(y, x, rtol=0.002)
 
-To use these fixtures, install with
+The ``allclose`` fixture stores root-mean-square error values,
+which can be reported in the pytest terminal summary.
+To do so, put the following in your ``conftest.py`` file.
 
-.. code-block:: bash
+..code-block:: python
 
-   pip install pytest-allclose
+    from pytest_allclose import report_rmses
+
+    def pytest_terminal_summary(terminalreporter):
+        report_rmses(terminalreporter)
+
+The ``allclose`` fixture has a number of arguments
+that are not part of Numpy's ``allclose``.
+One such argument is ``xtol``,
+which allows arrays that have been shifted along their first axis
+by a certain number of steps to be considered close.
+
+.. code-block:: python
+
+   import numpy as np
+
+   def test_close(allclose):
+       x = np.linspace(-1, 1)
+
+       assert allclose(x[1:], x[:-1], xtol=1)
+       assert allclose(x[3:], x[:-3], xtol=3)
+       assert not allclose(x[3:], x[:-3], xtol=1)
 
 Configuration
 =============
@@ -42,7 +73,10 @@ allclose_test_tolerances
 ------------------------
 
 ``allclose_test_tolerances`` accepts a list of test name patterns,
-followed by values for ``atol``, ``rtol``, or both.
+followed by values for any of the ``allclose`` parameters.
+These values will override any values provided within the test function itself,
+allowing multiple repositories to use the same test suite,
+but with different tolerances.
 
 .. code-block:: ini
 

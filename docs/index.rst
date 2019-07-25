@@ -5,3 +5,4 @@ API reference
 =============
 
 .. autofunction:: pytest_allclose.plugin.allclose
+.. autofunction:: pytest_allclose.plugin.report_rmses

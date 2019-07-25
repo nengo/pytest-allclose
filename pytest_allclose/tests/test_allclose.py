@@ -40,7 +40,7 @@ def test_allclose(allclose):
 
     pairs = get_vector_pairs(atol, rtol, np.random.RandomState(3))
     for close, x, y in pairs:
-        assert allclose(y, x, atol=atol, rtol=rtol) is close
+        assert allclose(y, x, atol=atol, rtol=rtol) == close
 
 
 def test_tolerances_big(allclose):
@@ -51,7 +51,7 @@ def test_tolerances_big(allclose):
 
     pairs = get_vector_pairs(atol, rtol, np.random.RandomState(4))
     for close, x, y in pairs:
-        assert allclose(y, x) is close
+        assert allclose(y, x) == close
 
 
 def test_tolerances_small(allclose):
@@ -62,7 +62,7 @@ def test_tolerances_small(allclose):
 
     pairs = get_vector_pairs(atol, rtol, np.random.RandomState(5))
     for close, x, y in pairs:
-        assert allclose(y, x) is close
+        assert allclose(y, x) == close
 
 
 @pytest.mark.parametrize('big_tols', [False, True])
@@ -74,7 +74,7 @@ def test_parametrized(big_tols, allclose):
 
     pairs = get_vector_pairs(atol, rtol, np.random.RandomState(6))
     for close, x, y in pairs:
-        assert allclose(y, x) is close
+        assert allclose(y, x) == close
 
 
 def test_multiple_tolerances(allclose):
@@ -93,3 +93,14 @@ def test_multiple_tolerances(allclose):
     atol2, rtol2 = 0.002, 0.005
     close2, x2, y2 = get_vector_pairs(atol2, rtol2, rng)[0]
     assert close2 and allclose(y2, x2)
+
+
+def test_xtol(allclose):
+    x = np.linspace(-1, 1)
+    dx = x[1] - x[0]
+    y = [x + i*dx for i in range(4)]
+
+    assert allclose(y[1], x, atol=1e-8, rtol=1e-8, xtol=1)
+    assert not allclose(y[2], x, atol=1e-8, rtol=1e-8, xtol=1)
+    assert allclose(y[2], x, atol=1e-8, rtol=1e-8, xtol=2)
+    assert not allclose(y[3], x, atol=1e-8, rtol=1e-8, xtol=2)
