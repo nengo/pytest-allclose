@@ -77,6 +77,10 @@ travis_yml:
       env:
         NUMPY: numpy==1.16
     - script: docs
+  pypi_user: tbekolay
+  deploy_dists:
+    - sdist
+    - bdist_wheel
 
 ci_scripts:
   - template: static
@@ -89,6 +93,7 @@ ci_scripts:
     pip_install:
       - $NUMPY
   - template: docs
+  - template: deploy
 
 codecov_yml: {}
 
