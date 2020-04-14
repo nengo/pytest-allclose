@@ -29,10 +29,22 @@ def read(*filenames, **kwargs):
 root = os.path.dirname(os.path.realpath(__file__))
 version = runpy.run_path(os.path.join(root, "pytest_allclose", "version.py"))["version"]
 
-install_req = ["numpy>=1.11", "pytest"]
-docs_req = ["nengo_sphinx_theme>=1.0", "sphinx"]
+install_req = [
+    "numpy>=1.11",
+    "pytest",
+]
+docs_req = [
+    "nengo_sphinx_theme>=1.0",
+    "sphinx",
+]
 optional_req = []
-tests_req = ["codespell", "coverage>=4.3", "flake8", "gitlint", "pylint"]
+tests_req = [
+    "codespell",
+    "coverage>=4.3",
+    "flake8",
+    "gitlint",
+    "pylint",
+]
 
 setup(
     name="pytest-allclose",
@@ -54,7 +66,7 @@ setup(
         "tests": tests_req,
     },
     python_requires=">=3.5",
-    entry_points={"pytest11": ["allclose = pytest_allclose.plugin"]},
+    entry_points={"pytest11": ["allclose = pytest_allclose.plugin",],},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Pytest",

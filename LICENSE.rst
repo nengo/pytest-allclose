@@ -6,7 +6,7 @@ pytest-allclose license
 
 MIT License
 
-Copyright (c) 2019-2019 Applied Brain Research
+Copyright (c) 2019-2020 Applied Brain Research
 
 Permission is hereby granted, free of charge,
 to any person obtaining a copy of this software

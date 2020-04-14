@@ -4,6 +4,6 @@
 pytest-allclose contributors
 ****************************
 
-See https://www.nengo.ai/people/ for a list of
-the many people who have worked on pytest-allclose;
-thank you for your contributions!
+See https://github.com/nengo/pytest-allclose/graphs/contributors
+for a list of the people who have committed to pytest-allclose.
+Thank you for your contributions!
