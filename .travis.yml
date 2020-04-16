@@ -23,6 +23,9 @@ env:
     - TEST_ARGS=""
     - BRANCH_NAME="${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}"
     - NUMPY="numpy"
+    - COV_CORE_SOURCE="pytest_allclose"
+    - COV_CORE_CONFIG=".coveragerc"
+    - COV_CORE_DATAFILE=".coverage.eager"
 
 jobs:
   include:

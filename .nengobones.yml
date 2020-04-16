@@ -66,6 +66,9 @@ travis_yml:
   python: 3.6
   global_vars:
     NUMPY: numpy
+    COV_CORE_SOURCE: pytest_allclose
+    COV_CORE_CONFIG: .coveragerc
+    COV_CORE_DATAFILE: .coverage.eager
   jobs:
     - script: static
     - script: test-coverage
