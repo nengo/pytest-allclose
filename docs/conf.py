@@ -81,4 +81,5 @@ html_favicon = os.path.join("_static", "favicon.ico")
 html_theme_options = {
     "nengo_logo": "general-small-light.svg",
     "nengo_logo_color": "#a8acaf",
+    "one_page": True,
 }

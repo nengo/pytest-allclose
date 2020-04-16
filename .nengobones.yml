@@ -60,6 +60,7 @@ setup_cfg:
 
 docs_conf_py:
   nengo_logo: general-small-light.svg
+  one_page: True
 
 travis_yml:
   python: 3.6
