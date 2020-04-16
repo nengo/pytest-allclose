@@ -6,6 +6,13 @@ notifications:
   email:
     on_success: change
     on_failure: change
+  slack:
+    if: branch = master
+    on_pull_requests: false
+    on_success: change
+    on_failure: always
+    rooms:
+      - secure: "c/7/kJoJ9VkfHDWLnjGsv/+2bD4Qg2WOuwZMhnIZdn5oqlW7GlsMvRBKkG9ezB/klkCli4Ksy6td+0mL/cq7zYdUlZvGyHqpq5flG2X9Sg2t/bFK9iAWXyTN9+uV3TMc3et9LAtImh9Wonkj5nO69PgudCO3QaWzSB68KtkifoCkP+alYseaTcLssIP2xJqE4IbfCMpPnJRDeFtprNJavC7RMooSl+BZJQqQ6Nc8uBDGspm52mZ3gcllkL2ixJE+sAIE69I04AypC1Y81O2TEGrqjGt5bhur7dfnIUPuL1XJKJooqLap5l/fwNzGSTxKDguTkmP7JnL4N/UYLbwgWj5N9jm1nEyRoCBK3VBQsdWOTkeGvziP302Gv8ueP1PfAvd/7zRk6xdHOvWnQaexoTBnB1vTQH1j1uQ2gR8GKrgt8mKYeK1npLQEdFK6p5cfFZvVTwjVu0I5K7N36eQEVg9uAs2FCHTP3dDx0RctAAJwdYyS2AsupD93ad4V65ZufFJy0UCr8MrJV09CyCjR2HZA8A317+RfKSJmQdswqXrOWNDERZ8+GFuegzcsS2IAFyJAa+ljl0cgj6sHcgAenkTyhejK5vS78at5/Rtgwa572HGq49os3eqso/NJ71beajnQYZXIymGYtD+xhhDxqgXWmEa0Bo9xzcibxHz7ovk="
 cache: pip
 
 dist: xenial
