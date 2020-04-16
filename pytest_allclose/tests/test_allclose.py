@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 """Test the allclose fixture."""
 
 import inspect

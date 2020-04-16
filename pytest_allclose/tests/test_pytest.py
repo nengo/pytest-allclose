@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 import re
 from textwrap import dedent
 
