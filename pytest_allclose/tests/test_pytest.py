@@ -6,7 +6,6 @@ from textwrap import dedent
 import numpy as np
 import pytest
 
-
 pytest_plugins = ["pytester"]  # adds the `testdir` fixture
 
 

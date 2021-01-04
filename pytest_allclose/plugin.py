@@ -65,8 +65,7 @@ def allclose(request):
         print_fail=5,
         record_rmse=True,
     ):
-        """Checks if two arrays are close, mimicking `numpy.allclose`.
-        """
+        """Checks if two arrays are close, mimicking `numpy.allclose`."""
 
         if len(overrides) > 0:
             override_args = overrides[min(call_count[0], len(overrides) - 1)]
