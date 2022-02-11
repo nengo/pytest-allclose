@@ -30,7 +30,7 @@ root = pathlib.Path(__file__).parent
 version = runpy.run_path(str(root / "pytest_allclose" / "version.py"))["version"]
 
 install_req = [
-    "numpy>=1.11",
+    "numpy>=1.19",
     "pytest",
 ]
 docs_req = [
@@ -67,7 +67,7 @@ setup(
         "optional": optional_req,
         "tests": tests_req,
     },
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     entry_points={
         "pytest11": [
             "allclose = pytest_allclose.plugin",
@@ -78,8 +78,10 @@ setup(
         "Framework :: Pytest",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
     ],
 )

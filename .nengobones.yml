@@ -14,10 +14,15 @@ contributors_rst: {}
 
 manifest_in: {}
 
+version_py:
+  major: 1
+  minor: 0
+  patch: 1
+  release: false
+
 setup_py:
-  python_requires: ">=3.5"
   install_req:
-    - numpy>=1.11
+    - numpy>=1.19
     - pytest
   docs_req:
     - nbsphinx>=0.6.0
@@ -37,9 +42,12 @@ setup_py:
     - "Development Status :: 5 - Production/Stable"
     - "Framework :: Pytest"
     - "Programming Language :: Python :: 3 :: Only"
-    - "Programming Language :: Python :: 3.5"
     - "Programming Language :: Python :: 3.6"
     - "Programming Language :: Python :: 3.7"
+    - "Programming Language :: Python :: 3.8"
+    - "Programming Language :: Python :: 3.9"
+    - "Programming Language :: Python :: 3.10"
+
 
 setup_cfg:
   pytest:
@@ -71,15 +79,13 @@ travis_yml:
     - script: static
     - script: test-coverage
     - script: test
-      python: 3.5
+      python: 3.8
       env:
-        NUMPY: numpy==1.11
+        NUMPY: numpy==1.19
       cache: false  # disable the cache for one build to make sure that works
     - script: test
-      python: 3.7
-      dist: xenial  # currently only xenial has python 3.7
-      env:
-        NUMPY: numpy==1.16
+      python: 3.10
+      dist: focal
     - script: docs
   pypi_user: tbekolay
   deploy_dists:

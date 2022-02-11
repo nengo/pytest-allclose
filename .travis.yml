@@ -37,16 +37,15 @@ jobs:
       SCRIPT="test-coverage"
   -
     env:
-      NUMPY="numpy==1.11"
+      NUMPY="numpy==1.19"
       SCRIPT="test"
-    python: 3.5
+    python: 3.8
     cache: False
   -
     env:
-      NUMPY="numpy==1.16"
       SCRIPT="test"
-    python: 3.7
-    dist: xenial
+    python: 3.1
+    dist: focal
   -
     env:
       SCRIPT="docs"

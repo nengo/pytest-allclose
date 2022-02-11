@@ -6,7 +6,6 @@ from textwrap import dedent
 import numpy as np
 import pytest
 
-
 pytest_plugins = ["pytester"]  # adds the `testdir` fixture
 
 
@@ -27,32 +26,28 @@ def assert_all_passed(result):
 def test_rmse_output(offsets, relative, testdir):
     testdir.makeconftest(
         dedent(
-            """\
+            f"""\
             from pytest_allclose import report_rmses
 
             def pytest_terminal_summary(terminalreporter):
                 report_rmses(terminalreporter, relative={relative})
-            """.format(
-                relative=relative
-            )
+            """
         )
     )
 
     testdir.makefile(
         ".py",
         test_rmse_output=dedent(
-            """\
+            f"""\
             import numpy as np
             import pytest
 
-            @pytest.mark.parametrize('offset', [{offsets}])
+            @pytest.mark.parametrize('offset', [{', '.join(str(x) for x in offsets)}])
             def test_rmse(offset, allclose):
                 x = np.linspace(-1, 1)
                 y = x + offset
                 assert allclose(y, x, atol=offset + 1e-8)
-            """.format(
-                offsets=", ".join(str(x) for x in offsets)
-            )
+            """
         ),
     )
 
@@ -60,7 +55,7 @@ def test_rmse_output(offsets, relative, testdir):
     n_passed = assert_all_passed(result)
     assert n_passed > 0
 
-    tag = "mean %sRMSE: " % ("relative " if relative else "")
+    tag = f"mean {'relative ' if relative  else ''}RMSE: "
     lines = [s[len(tag) :] for s in result.outlines if s.startswith(tag)]
     assert len(lines) == 1
     line = lines[0]
@@ -69,7 +64,7 @@ def test_rmse_output(offsets, relative, testdir):
     mean, std = float(parts[0]), float(parts[2])
 
     x = np.linspace(-1, 1)
-    x_rms = np.sqrt(np.mean(x ** 2))
+    x_rms = np.sqrt(np.mean(x**2))
     rmses = [offset / x_rms for offset in offsets] if relative else offsets
     assert np.allclose(mean, np.mean(rmses), atol=1e-4)
     assert np.allclose(std, np.std(rmses), atol=1e-4)
@@ -80,7 +75,7 @@ def test_print_fail_output(rel_error, print_fail, testdir):
     testdir.makefile(
         ".py",
         test_print_fail_output=dedent(
-            """\
+            f"""\
             import numpy as np
 
             def test_print_fail(allclose):
@@ -88,9 +83,7 @@ def test_print_fail_output(rel_error, print_fail, testdir):
                 x = np.sin(2*np.pi*t)
                 y = x * {rel_error}
                 assert allclose(y, x, atol=0.001, rtol=0, print_fail={print_fail:d})
-            """.format(
-                rel_error=rel_error, print_fail=print_fail
-            )
+            """
         ),
     )
 
@@ -159,4 +152,4 @@ def test_bad_override_parameter(testdir):
 
     result = testdir.runpytest("-v")
     outcomes = result.parseoutcomes()
-    assert outcomes.get("passed", 0) == 0 and outcomes.get("error", 0) == 1
+    assert outcomes.get("passed", 0) == 0 and outcomes.get("errors", 0) == 1
