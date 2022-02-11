@@ -65,8 +65,7 @@ def allclose(request):
         print_fail=5,
         record_rmse=True,
     ):
-        """Checks if two arrays are close, mimicking `numpy.allclose`.
-        """
+        """Checks if two arrays are close, mimicking `numpy.allclose`."""
 
         if len(overrides) > 0:
             override_args = overrides[min(call_count[0], len(overrides) - 1)]
@@ -117,11 +116,10 @@ def allclose(request):
             for k, ind in enumerate(zip(*(~close).nonzero())):
                 if k >= print_fail:
                     break
-                diffs.append("%s: %s %s" % (ind, broadcast_a[ind], broadcast_b[ind]))
+                diffs.append(f"{ind}: {broadcast_a[ind]} {broadcast_b[ind]}")
 
-            print(
-                "allclose first %d failures:\n  %s" % (len(diffs), "\n  ".join(diffs))
-            )
+            diff_str = "\n".join(diffs)
+            print(f"allclose first {len(diffs)} failures:\n  {diff_str}")
 
         return result
 
@@ -134,7 +132,7 @@ _allclose_arg_types = dict(
 
 
 def _rms(x, axis=None, keepdims=False):
-    return np.sqrt(np.mean(x ** 2, axis=axis, keepdims=keepdims))
+    return np.sqrt(np.mean(x**2, axis=axis, keepdims=keepdims))
 
 
 def _safe_rms(x):
@@ -170,7 +168,7 @@ def _get_allclose_overrides(request):
 
                 k, v = entry.split("=")
                 if k not in _allclose_arg_types:
-                    raise ValueError("Unrecognized argument %r" % k)
+                    raise ValueError(f"Unrecognized argument '{k}'")
 
                 kwargs[k] = _allclose_arg_types[k](v)
 
@@ -222,8 +220,8 @@ def report_rmses(terminalreporter, relative=True):
 
     if len(all_rmses) > 0:
         relstr = "relative " if relative else ""
-        tr.write_sep("=", "%sroot mean squared error for allclose checks" % relstr)
+        tr.write_sep("=", f"{relstr}root mean squared error for allclose checks")
         tr.write_line(
-            "mean %sRMSE: %.5f +/- %.4f (std)"
-            % (relstr, np.mean(all_rmses), np.std(all_rmses))
+            f"mean {relstr}RMSE: {np.mean(all_rmses):.5f} "
+            f"+/- {np.std(all_rmses):.4f} (std)"
         )
