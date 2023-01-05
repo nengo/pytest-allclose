@@ -1,4 +1,4 @@
-"""The ``allclose`` fixture definition"""
+"""The ``allclose`` fixture definition."""
 
 from fnmatch import fnmatch
 
@@ -42,7 +42,8 @@ def _add_common_docs(func):
 @pytest.fixture
 @_add_common_docs
 def allclose(request):
-    """Returns a function checking if two arrays are close, mimicking `numpy.allclose`.
+    """
+    Returns a function checking if two arrays are close, mimicking `numpy.allclose`.
 
     .. currentmodule:: allclose
 
@@ -65,8 +66,7 @@ def allclose(request):
         print_fail=5,
         record_rmse=True,
     ):
-        """Checks if two arrays are close, mimicking `numpy.allclose`.
-        """
+        """Checks if two arrays are close, mimicking `numpy.allclose`."""
 
         if len(overrides) > 0:
             override_args = overrides[min(call_count[0], len(overrides) - 1)]
@@ -134,7 +134,7 @@ _allclose_arg_types = dict(
 
 
 def _rms(x, axis=None, keepdims=False):
-    return np.sqrt(np.mean(x ** 2, axis=axis, keepdims=keepdims))
+    return np.sqrt(np.mean(x**2, axis=axis, keepdims=keepdims))
 
 
 def _safe_rms(x):
@@ -180,7 +180,8 @@ def _get_allclose_overrides(request):
 
 
 def report_rmses(terminalreporter, relative=True):
-    """Report RMSEs recorded by the allclose fixture in the Pytest terminal.
+    """
+    Report RMSEs recorded by the allclose fixture in the Pytest terminal.
 
     This function helps with reporting recorded root mean squared errors
     (RMSEs). These RMSEs offer a measure of performance for each test

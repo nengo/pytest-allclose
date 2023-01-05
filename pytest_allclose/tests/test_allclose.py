@@ -52,7 +52,7 @@ def test_allclose(allclose):
 
 
 def test_tolerances_big(allclose):
-    """Make sure tolerances in setup.cfg are properly applied"""
+    """Make sure tolerances in setup.cfg are properly applied."""
     rng = np.random.RandomState(4)
 
     # atol=0.01 and rtol=0.2 has been set in setup.cfg.
@@ -62,7 +62,7 @@ def test_tolerances_big(allclose):
 
 
 def test_tolerances_small(allclose):
-    """Make sure tolerances in setup.cfg are properly applied"""
+    """Make sure tolerances in setup.cfg are properly applied."""
     rng = np.random.RandomState(5)
 
     # atol=0.001 and rtol=0.005 has been set in setup.cfg.

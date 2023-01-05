@@ -6,18 +6,18 @@ from textwrap import dedent
 import numpy as np
 import pytest
 
-
 pytest_plugins = ["pytester"]  # adds the `testdir` fixture
 
 
 def assert_all_passed(result):
-    """Assert that all outcomes are 0 except for 'passed'.
+    """
+    Assert that all outcomes are 0 except for 'passed'.
 
     Also returns the number of passed tests.
     """
     outcomes = result.parseoutcomes()
     for outcome in outcomes:
-        if outcome not in ("passed", "seconds"):
+        if outcome not in ("passed", "seconds", "warnings", "warning"):
             assert outcomes[outcome] == 0
     return outcomes.get("passed", 0)
 
@@ -69,7 +69,7 @@ def test_rmse_output(offsets, relative, testdir):
     mean, std = float(parts[0]), float(parts[2])
 
     x = np.linspace(-1, 1)
-    x_rms = np.sqrt(np.mean(x ** 2))
+    x_rms = np.sqrt(np.mean(x**2))
     rmses = [offset / x_rms for offset in offsets] if relative else offsets
     assert np.allclose(mean, np.mean(rmses), atol=1e-4)
     assert np.allclose(std, np.std(rmses), atol=1e-4)
@@ -159,4 +159,4 @@ def test_bad_override_parameter(testdir):
 
     result = testdir.runpytest("-v")
     outcomes = result.parseoutcomes()
-    assert outcomes.get("passed", 0) == 0 and outcomes.get("error", 0) == 1
+    assert outcomes.get("passed", 0) == 0 and outcomes.get("errors", 0) == 1
