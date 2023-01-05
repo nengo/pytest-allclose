@@ -5,6 +5,7 @@ description: Pytest fixture extending Numpy's allclose function
 
 copyright_start: 2019
 license: mit
+main_branch: main
 
 license_rst: {}
 
@@ -43,72 +44,40 @@ setup_py:
 
 setup_cfg:
   pytest:
-    addopts: []
+    addopts:
+      - "--cov"
+      - "--cov-append"
     allclose_tolerances:
       - test_tolerances_big atol=0.01 rtol=0.2
       - "test_tolerances_small atol=0.001 rtol=0.005  # test comment"
-      - test_parametrized[True] atol=0.1 rtol=0.2  # parametrized with big tols
-      - test_parametrized[False] atol=0.001 rtol=0.002  # and with small tols
-      - test_precedence[1] atol=1 rtol=2  # correct, specific first
-      - test_precedence* atol=2 rtol=4  # general, should work for 2
-      - test_precedence[3] atol=3 rtol=6  # incorrect, specific after general
+      - test_parametrized[True] atol=0.1 rtol=0.2 # parametrized with big tols
+      - test_parametrized[False] atol=0.001 rtol=0.002 # and with small tols
+      - test_precedence[1] atol=1 rtol=2 # correct, specific first
+      - test_precedence* atol=2 rtol=4 # general, should work for 2
+      - test_precedence[3] atol=3 rtol=6 # incorrect, specific after general
       - test_multiple_tolerances atol=0.001 rtol=0.004
       - test_multiple_tolerances atol=0.01 rtol=0.05
       - test_multiple_tolerances atol=0.002 rtol=0.005
+  pylint:
+    disable:
+      - consider-using-f-string
+  coverage:
+    omit_files:
+      - "*/setup.py"
 
 docs_conf_py:
   nengo_logo: general-small-light.svg
   one_page: True
 
-travis_yml:
-  python: 3.6
-  global_vars:
-    NUMPY: numpy
-    COV_CORE_SOURCE: pytest_allclose
-    COV_CORE_CONFIG: .coveragerc
-    COV_CORE_DATAFILE: .coverage.eager
-  jobs:
-    - script: static
-    - script: test-coverage
-    - script: test
-      python: 3.5
-      env:
-        NUMPY: numpy==1.11
-      cache: false  # disable the cache for one build to make sure that works
-    - script: test
-      python: 3.7
-      dist: xenial  # currently only xenial has python 3.7
-      env:
-        NUMPY: numpy==1.16
-    - script: docs
-  pypi_user: tbekolay
-  deploy_dists:
-    - sdist
-    - bdist_wheel
-  slack_notifications: "c/7/kJoJ9VkfHDWLnjGsv/+2bD4Qg2WOuwZMhnIZdn5oqlW7GlsMvRBKkG9ezB\
-    /klkCli4Ksy6td+0mL/cq7zYdUlZvGyHqpq5flG2X9Sg2t/bFK9iAWXyTN9+uV3TMc3et9LAtImh9Wonkj\
-    5nO69PgudCO3QaWzSB68KtkifoCkP+alYseaTcLssIP2xJqE4IbfCMpPnJRDeFtprNJavC7RMooSl+BZJQ\
-    qQ6Nc8uBDGspm52mZ3gcllkL2ixJE+sAIE69I04AypC1Y81O2TEGrqjGt5bhur7dfnIUPuL1XJKJooqLap\
-    5l/fwNzGSTxKDguTkmP7JnL4N/UYLbwgWj5N9jm1nEyRoCBK3VBQsdWOTkeGvziP302Gv8ueP1PfAvd/7z\
-    Rk6xdHOvWnQaexoTBnB1vTQH1j1uQ2gR8GKrgt8mKYeK1npLQEdFK6p5cfFZvVTwjVu0I5K7N36eQEVg9u\
-    As2FCHTP3dDx0RctAAJwdYyS2AsupD93ad4V65ZufFJy0UCr8MrJV09CyCjR2HZA8A317+RfKSJmQdswqX\
-    rOWNDERZ8+GFuegzcsS2IAFyJAa+ljl0cgj6sHcgAenkTyhejK5vS78at5/Rtgwa572HGq49os3eqso/NJ\
-    71beajnQYZXIymGYtD+xhhDxqgXWmEa0Bo9xzcibxHz7ovk="
-
 ci_scripts:
   - template: static
   - template: test
-    pip_install:
-      - $NUMPY
-  - template: test
-    output_name: test-coverage
     coverage: true
     pip_install:
-      - $NUMPY
+      - $NUMPY_VERSION
   - template: docs
   - template: deploy
-
-codecov_yml: {}
+    wheel: true
 
 pre_commit_config_yaml: {}
 
