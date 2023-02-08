@@ -128,9 +128,14 @@ def allclose(request):
     return _allclose
 
 
-_allclose_arg_types = dict(
-    atol=float, rtol=float, xtol=int, equal_nan=bool, print_fail=int, record_rmse=bool
-)
+_allclose_arg_types = {
+    "atol": float,
+    "rtol": float,
+    "xtol": int,
+    "equal_nan": bool,
+    "print_fail": int,
+    "record_rmse": bool,
+}
 
 
 def _rms(x, axis=None, keepdims=False):

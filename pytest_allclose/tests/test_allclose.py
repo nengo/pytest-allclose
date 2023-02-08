@@ -89,11 +89,11 @@ def test_precedence(order, allclose):
 
     pairs = get_vector_pairs(order, order * 2, np.random.RandomState(6))
     if order in (1, 2):
-        assert overrides[0] == dict(atol=order, rtol=order * 2)
+        assert overrides[0] == {"atol": order, "rtol": order * 2}
         for x, y, close in pairs:
             assert allclose(y, x) == close
     else:
-        assert overrides[0] == dict(atol=2, rtol=4)
+        assert overrides[0] == {"atol": 2, "rtol": 4}
         x, y, _ = pairs[0]
         assert not allclose(y, x)
 
